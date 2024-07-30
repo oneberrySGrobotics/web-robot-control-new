@@ -1,0 +1,21 @@
+{
+  "ROBOT": "KENOBI",
+  "NODE_PORT": 3000,
+  "CWD": "/opt/robo/bin/",
+  "ROBO_LOCOMOTION": "Robo_LocomotionControl.sh",
+  "ROBO_GPIO": "Robo_GPIOControl",
+  "ROBO_LIGHT_SWITCH": "Robo_12Volts.sh",
+  "ROBO_FACE_CONTROL": "Robo_FaceControl.sh",
+  "ROBO_POLE_CONTROL": "Robo_PoleControl.sh",
+  "XHR_URL": "http://localhost:3000/api/camera_url",
+  "SAVE_SETTINGS_XHR_URL": "/api/save_settings",
+  "VMS_FEED_ENDPOINT": "http://localhost:8081",
+  "VMS_BASE_URL": "http://localhost:7001",
+  "VMS_FEED_URL": "/media/0972120625D6.mpjpeg?resolution=720p",
+  "VMS_USERNAME": "admin",
+  "VMS_PASSWORD": "0n3beRrY168",
+  "VMS_GET_TIMEOUT": 2000,
+  "SIP_DIAL": "Robo_SIP_DIAL.sh",
+  "SIP_COMMAND": "./Robo_SIP_DIAL.sh",
+  "APP_NAME": "PM2-APP"
+}

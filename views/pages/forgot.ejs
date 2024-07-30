@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/viewPanel.css">
+    <link rel="stylesheet" type="text/css" href="styles/alert.css">
+</head>
+
+<body>
+    <audio id="blockedAudio" muted="muted" autoplay>
+        <source src="sound/kenobi_alert.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="robo-header">
+        <!-- <img id="video-element" src="https://i.ytimg.com/vi/kjRmgDJC3ZM/maxresdefault.jpg" style="width: 100%; height: 100%;"> -->
+        <div class="oneberry-logo">
+            <img src="images/logo_oneberry.png" style="width:100%">
+        </div>
+    </div>
+    <form action="/forgot" class="form-style-9 " method="POST">
+        <div style="margin-top: -25px;"><a href="/" style="font-size: 30px;border:none;" title="Back">&#8629;</a></div>
+        <div>
+            <img src="images/roboguard_logo.png" style="width:100%">
+        </div>
+        <span class="formtitle">Forgot Password</span>
+        <% if (msx=="success") {%>
+        <span id="resultmsg" style="color:green" class="resultmsg">Success, Please check your mail</span>
+        <% }else {%>
+        <span id="resultmsg" style="color:red" class="resultmsg">
+            <%=msx%></span>
+        <% }%>
+        <ul>
+            <li>
+                <input type="email" id="email" name="email" class="field-style field-full align-none" placeholder="Email" />
+            </li>
+            <!-- <li> -->
+            <input type="checkbox" class="checkboxs" id="unblock" name="unblock" class="field-style field-full align-none" placeholder="unblock" value="unblock" />
+            <label class="checkboxsLabel">Unblock</label>
+            <!-- </li> -->
+            <br>
+            <li>
+                <button type="submit" class='button1' value="reset">Reset</button>
+            </li>
+        </ul>
+    </form>
+    <!-- 
+<a href="/register">Not a member Yet? Register</a> -->
+    <script src="/socket.io/socket.io.js"></script>
+</body>
+
+</html>

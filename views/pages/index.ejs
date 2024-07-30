@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>SocketBot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv='cache-control' content='no-cache'> 
+    <meta http-equiv='expires' content='0'> 
+    <meta http-equiv='pragma' content='no-cache'> 
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> -->
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/autonomousStyle.css">
+    <link rel="stylesheet" type="text/css" href="styles/alert.css">
+    <script src="scripts/nipplejs.js"></script>
+    
+
+</head>
+
+<body>
+    
+    <div id="sessExpirDiv">
+    </div>
+    <div id="blockwarning" class="alertBoxContainer">
+        <div id="blockwarningborder" class="alertBorder">
+            <img id="kenobialert" src="images/kenobialert.jpeg">
+            <button id="dismisswarning">[Acknowledge]</button>
+        </div>
+    </div>
+    <div id="blockoptions" class="alertBoxContainer">
+        <div id="blockoptionsborder" class="alertBorder">
+            <span id="closeWarning" class="closeicon">&#10006;</span>
+            <img id="kenobioptions" src="images/alertOption.jpeg">
+            <button id="takeoverkenobi">Take over <br> KenOBI</button>
+            <button id="bringkenobihome">Bring KenOBI<br> Home </button>
+            <button id="reversepartrolroute">Reverse <br> Patrol Route</button>
+        </div>
+    </div>
+    <!-- Header -->
+    <div class="robo-header">
+        <!-- <img id="video-element" src="https://i.ytimg.com/vi/kjRmgDJC3ZM/maxresdefault.jpg" style="width: 100%; height: 100%;"> -->
+        <div class="oneberry-logo">
+            <img src="images/logo_oneberry.png" style="width:100%">
+        </div>
+        <div class="roboguard-logo">
+            <img src="images/roboguard_logo.png" style="width:100%">
+        </div>
+    </div>
+    <!-- Control Icons -->
+    <div class="control-pages">
+        <button class="button-base" >
+        <form action="/logout?_method=DELETE" method="POST">
+            <button class="button-base" id="logoutbutton" title="Log Out" type="submit">
+
+            <img class="icons" title="Log out" src="images/logout.png" alt="">
+            </button>
+        </form>
+        </button>
+       <!--  <button class="button-base" style="display:none" id="openDialogBoxButton">
+            <img class="icons" src="images/cog.svg" alt="">
+        </button> -->
+        <button class="button-base" id="wheellock">
+            <img class="icons" title="wheel lock On/Off" src="images/wheellock.png" alt="">
+        </button>
+        <button class="button-base" id="openAutonomousBoxButton">
+            <img class="icons" title="Autonomous" src="images/autonomosu.png" alt="">
+        </button>
+        <button class="button-base" id="lightButton">
+            <img class="icons" title="light On/Off" src="images/lightbulb.svg" alt="">
+        </button>
+        <button class="button-base" id="charging">
+            <img class="icons" title="Charging" src="images/charging.png" alt="">
+        </button>
+        
+        <button class="button-base">
+            <a href="/register" style="color:white"><img class="icons" src="images/adduser.png"></a>
+        </button>
+   
+
+        
+        <button class="button-base" id="ptzUp">
+            <img class="icons" title="PTZ Up" src="images/PtzUp.png" alt="">
+        </button>
+        <button class="button-base" id="ptzDown">
+            <img class="icons" title="PTZ Down" src="images/PtzDown.png" alt="">
+        </button>
+        <button class="button-base" id="bypass">
+            <img class="icons" id="bypassImg" title="Bypass" src="images/bypassOff.png" alt="">
+        </button>
+        <audio id="outOfGreenZoneAudio">
+          <source src="sound/gurenge.mp3" type="audio/mp3">
+        </audio>
+    </div>
+    <!--**********************************************************************************************************************                    SETTING LAYER             ********************************************************************************************************************************************************-->
+    <div id="dialog-box" data-visibility="false">
+        <div id="dialog-box-content">
+            <button class="actionButton" id="SIP_button" type="submit">CALL</button>
+            <button class="actionButton" id="reload" type="submit">PM2 <br>Reload</button>
+            <button class="actionButton" id="reboot" type="submit">Reboot</button>
+            <button class="actionButton" id="shutdown" type="submit">Shutdown</button>
+        </div>
+        <button class="button-base" id="closeDialogBoxButton">Close Dialog Box</button>
+    </div>
+    <!--**********************************************************************************************************************                    Autonomous LAYER              ********************************************************************************************************************************************************-->
+    <div id="autonomous-box" data-visibility="false">
+        <div id="autonomous-box-content">
+            <div id="navigatorPanelController" onclick="navigationSize(this)">
+                <span id="expandFont">></span>
+            </div>
+            <div id="navigator">
+                <!-- 1 Control container -->
+                <div id="functionSwitches">
+
+                    <button id="calibrateswitch" class="button1"> Map Calibration</button>
+                   
+                    <button id="autonomousSwitch" class="button1">Autonomous</button>
+                </div>
+                <div class="tab" id="calibrateTab" style="display:none">
+                    <button class="tablinks" id="offsetbtn" onclick="openCity(event, 'offset')">Offset</button>
+                    <button class="tablinks" onclick="openCity(event, 'upload')">Upload Map</button>
+                    <button class="tablinks" onclick="openCity(event, 'greenzone')">G Zone</button>
+                    <button class="tablinks" onclick="openCity(event, 'CustomizeGZone')">Customize</button>
+                </div>
+                <div class="tab" id="controlTab" style="display:none">
+                    <button class="tablinks" id="runAutonomous" onclick="openCity(event, 'run')">Run</button>
+                   
+                    <button class="tablinks" onclick="openCity(event, 'route')">Route</button>
+                    <button class="tablinks" id="customroute" onclick="openCity(event, 'customizeRoute')">Edit Route</button>
+                   
+                    <button class="tablinks" id="sounds" onclick="openCity(event, 'soundsList')">Sounds</button>
+                    <button class="tablinks" id="faces" onclick="openCity(event, 'facelist')">Faces</button>
+                   
+                    <button class="tablinks" id="settings" onclick="openCity(event, 'setting')">Settings</button>
+                    
+                </div>
+                <div id="controlContainer">
+                    <!--1.1 functionSwitches ########## -->
+                
+                    <!-- 1.2 Map Calibration  ##########-->
+                    <div id="calibrationCenter" class="tabcontentContainer">
+                        <!-- 1.2.1 Header Tab List -->
+                        <!-- 1.2.2 Offset -->
+                        <div id="offset" class="tabcontent">
+                            <h3>Offset</h3>
+                            <h3>
+                                <div class="label">Scale</div>
+                                <input class="text" type="text" name="scaleToMap" id="canvasScaleToMap">
+                            </h3>
+                            <h3>
+                                    <span class="prevOffset" id="scalingDetail"></span> 
+                            </h3>
+                            <h3>
+                                <div class="label">X</div>
+                                <input class="text" type="text" name="xoffset" id="xCanvassoffset">
+                            </h3>
+                            <h3>
+                                <div class="label">Y</div>
+                                <input class="text" type="text" name="yoffset" id="yCanvassoffset">
+                            </h3>
+                            <h3 style="display: none;">
+                                <div class="label">Reverse Axis</div>
+                                <div class="text"><input type="checkbox" name="transformXY" id="transformCanvasXY"></div>
+                            </h3>
+                            <button id="resetOffset" class="button1" value="resetOffset">Reset offset</button>
+                            <button id="getCanvasOffset" class="button1" value="getCanvasOffset">Update offset</button>
+                            <p>*seek operator help to calibrate this</p>
+                        </div>
+                        <!-- 1.2.3 Green Zone -->
+                        <div id="greenzone" class="tabcontent">
+                            <h3>Green Zone</h3>
+                            <button id="clearLastCalibrationBtn" class="button1">Clear Last</button>
+                            <button id="updateGreenZone" class="button1">update Green Zone</button>
+                            <p>The area in the green zone is the area the robot is allowed to move within</p>
+                            <p>To create a green zone, draw a shape using the click of a mouse </p>
+                            <p>
+                                <b>Press the "Clear last" button to delete your last click</b>
+                            </p>
+                        </div>
+                        <!-- 1.2.4 C -ustomize Green Zone-->
+                        <div id="CustomizeGZone" class="tabcontent">
+                            <h3>Update Green Zone</h3>
+                            <h3>
+                                <span>X,Y</span>
+                            </h3>
+                            <div id="zoneCoor"></div>
+                            <button id="updateCustomGreenZone" class="button1">Update Green Zone</button>
+                            <!-- <p>this will delete saved route in the system</p> -->
+                        </div>
+                        <!-- 1.2.5 Upload Map -->
+                        <div id="upload" class="tabcontent">
+                            <h3>Change Map</h3>
+                            <input type='file' id="imageInput" name="imageInput" accept="image/*" />
+                            <button id="uploadImage" class="button1">upload new map</button>
+                            <p>Ensure Map is in 4:3 scale (width, height)</p>
+                            <p>Refresh the page is if the map does not change within 2 seconds after upload</p>
+                        </div>
+                    </div> <!-- end 1.2 Map Calibration -->
+                   
+                    <!-- 1.3 Autonomous ####################-->
+                    <div id="controlCenter" class="tabcontentContainer">
+                        <!-- 1.3.1 Header tab List -->
+                        <!-- 1.3.2 Run -->
+                        <div id="run" class="tabcontent">
+                            <h3>Run Autonomous</h3>
+                            <h3>
+                                <select id="autonomousProfileSelect" class="select-css">
+                                    <option value="" disabled selected>Saved Route</option>
+                                </select>
+                            </h3>
+                            <h3>
+                                <button id="startAutonomousBtn" class="button1">Start</button>
+                            </h3>
+                            <h3>
+                                <button id="stopAutonomousBtn" class="button1">Stop</button>
+                            </h3>
+                            <h3>
+                                <button id="resumeAutonomous" class="button1">Resume Existing Autonomous</button>
+                            </h3>
+                            <span id="randomRoute" hidden></span>
+                            <!-- <h3>
+                  <button id="randomRoute" class="button1" value="add">Oneberry Random Route start</button>
+                </h3> -->
+                            <p>Select Autonomous Route from dropdown and click the "Start" button to begin the route.</p>
+                            <p>Click "Stop" to stop current autonomous movement</p>
+                            <p></p>
+                            <button id="robotLocationButton" class="button1" value="show"><img id="robotLocationimg" src="images/kenobi-icon.png"> Click Me to <br>Hide/Show My position</button>
+                        </div>
+                     
+                        <!-- 1.3.3  Route -->
+                        <div id="route" class="tabcontent">
+                            <h3>Create new Route</h3>
+                            <span id="invalidRouteName" hidden style="color:red">invalid Route Name</span>
+                            <span id="nameToolong" hidden style="color:red">Name too long</span>
+                            <form action="/addAutonomousRoute" id="addRouteForm" method="POST">
+                                <h3>
+                                    <input type="text" name="routeName" id="routeName" class="shapeRound1" placeholder="route name">
+                                    <input hidden name="routeCoordinate" id="routeCoordinate">
+                                </h3>
+                                <h3>
+                                    <button id="addRouteBtn" class="button1">Add new Route</button>
+                                </h3>
+                            </form>
+                            <h3>
+                                <button id="clearLastRouteBtn" class="button1">Clear Last Point</button>
+                            </h3>
+                            <p>Use this to create and save new route profile for your robot</p>
+                            <p></p>
+                            <p>
+                                <b>Press the "Clear last" button to delete your last click coordinate</b></p>
+                        </div>
+                        <!-- 1.3.4 Customize Route -->
+                        <div id="customizeRoute" class="tabcontent">
+                            <!-- <h3> -->
+                            <form action="/deleteroute" id="deleteForm" method="POST">
+                                <button id="deleteProfile" type="submit" class="button1">Delete route</button>
+                                <select id="autonomousProfileDelete" name="autonomousProfileDelete" class="select-css">
+                                    <option id="routeProfile" value="" disabled selected>Saved Route</option>
+                                </select>
+                            </form>
+                            <p>Last row of "Stop(s)" would be degree where robot would facing to</p>
+                            <h3>
+                                <span>X,Y</span>
+                                <span>Stop(s)</span>
+                                <span>Audio</span>
+                            </h3>
+                            <div id="customCoor" class="listContainer"></div>
+                            <button id="updateRoute" class="button1">Update route</button>
+                        </div>
+                        
+                        <!-- 1.3.5 Sound List -->
+                        <div id="soundsList" class="tabcontent">
+                            <h3 style="display:none">Upload Voice</h3>
+                            <h3 style="display:none">
+                                <input type='file' id="soundUpload" name="soundUpload" accept="audio/*" />
+                            </h3>
+                            <h3 style="display:none">
+                                <button id="uploadSound" class="button1">Upload</button>
+                            </h3>
+                            <h3 style="border-top: white solid 1px;">
+                                <span>Audio Recording</span>
+                            </h3>
+                            <h3>
+                                <span>
+                                    <button id="pauseSound" style="display:none" class="button1" disabled value="pause">Pause</button>
+                                </span>
+                                <span><button id="loopSound" class="button1" value="repeatoff">Repeat OFF</button></span>
+                                <span><button id="stopSound" class="button1" value="stop">Stop</button></span>
+                            </h3>
+                            <h3 style="display:none">
+                                <button id="playAll" class="button1" value="playAll">Play All</button>
+                            </h3>
+                            <p>Click below to listen to Audio Recording</p>
+                            <div id="customSound">
+                            </div>
+                            <audio control id="audioplayer"></audio>
+                            <!-- <p>this will delete saved route in the system</p> -->
+                        </div>
+                        <!-- 1.3.6 Face List -->
+                        <div id="facelist" class="tabcontent">
+                            <!-- <h3>Upload Face</h3> -->
+                            <h3 style="display:none">
+                                <input type='file' id="faceUpload" name="faceUpload" accept="image/*" />
+                                <button id="uploadFace" class="button1">Upload</button>
+                            </h3>
+                            <h3 style="border-top: white solid 1px;">
+                                <span>KenOBI Face</span>
+                            </h3>
+                            <p>**click on the icons below to change the face of KenOBI </p>
+                            <div id="customFace">
+                            </div>
+                            <!-- <p>this will delete saved route in the system</p> -->
+                        </div>
+                     
+                        <!-- 1.3.7 Settings -->
+                        <div id="setting" class="tabcontent">
+                            <h3 style="border-top: white solid 1px;">
+                                <span>Autonomous Setting</span>
+                            </h3>
+                            <p>** please stop autonomous to apply new setup</p>
+                            <div id="autonomousSetting" class="listContainer">
+                            </div>
+                            <!-- <p>this will delete saved route in the system</p> -->
+                            <button id="updateAutonomousSetting" class="button1">Update Setting</button>
+                        </div>
+                     
+                    </div> <!-- end 1.3 Autonomous -->
+                </div> <!-- end controlContainer -->
+            </div> <!-- end navigator -->
+            <!-- CANVAS ****************** -->
+            <div class="mapimg">
+                <img id="imagemap" src="images/map1.png">
+                <canvas id="canvasmap" width="1180%" height="885%">
+                    Your browser can't read canvas
+                </canvas>
+                <canvas id="canvasmapRobotPosition" width="1180%" height="885%">
+                    Your browser can't read canvas
+                </canvas>
+            </div>
+        </div> <!-- autonomous-box-content div -->
+        <button class="button-base" id="closeAutonomousBoxButton">Close Autonomous Box</button>
+    </div>
+    <!--**********************************************************************************************************************                                end ipin code                               ******************************************************************************************************************************************************************************************************************-->
+ 
+    
+    <button id="userclick" hidden></button>
+    <audio id="blockedAudio" muted="muted" autoplay>
+        <source src="sound/kenobi_alert.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+ 
+    <span id="calibrateswitch" hidden disabled></span>
+    <span id="customCoor" hidden disabled></span>
+    <span id="xCanvassoffset" hidden disabled></span>
+    <span id="yCanvassoffset" hidden disabled></span>
+    <span id="canvasScaleToMap" hidden disabled></span>
+    <span id="transformCanvasXY" hidden disabled></span>
+    <span id="zoneCoor" hidden disabled></span>
+    <select id="autonomousProfileDelete" hidden disabled></select>
+   
+
+    <input type="hidden" name="switches" id="switches" >
+    
+    <div class="controls-wrapper">
+        <div class="control-pages2">
+        <button class="button-base" id="speedup">
+            <img class="icons" title="Increase Speed" src="images/speedup.png" alt="">
+        </button>
+        <button class="button-base" id="speeddown">
+            <img class="icons" title="Decrease Speed" src="images/speeddown.png" alt="">
+        </button>
+    </div>
+        <div id="joystick_container"></div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="scripts/autonomous_var.js"></script>
+    <script src="scripts/basic_function.js"></script>
+    <script src="scripts/joystick.js"></script>
+    <script src="scripts/alert.js"></script>
+    <script src="scripts/customalert.js"></script>
+    <!-- <script src="scripts/dialog_box.js"></script> -->
+    <script src="scripts/multiMedia.js"></script>
+    <script src="scripts/autonomous_function.js"></script>
+    
+    <script src="scripts/indValidator.js"></script>
+    <script src="scripts/file_uploader.js"></script>
+   
+    <script src="scripts/autonomous_box.js"></script>
+   
+    <script src="scripts/autonomous_box_admin.js"></script>
+   
+    <script src="scripts/autonomous_nav.js"></script>
+    <script src="scripts/idle.js"></script>
+
+
+
+
+
+    
+        <!-- <script src="scripts/warnings.js"></script> -->
+</body>
+
+</html>

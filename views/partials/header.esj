@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <link rel="stylesheet" type="text/css" href="styles/style.css">
+  <link rel="stylesheet" type="text/css" href="styles/viewPanel.css">
+  <link rel="stylesheet" type="text/css" href="styles/alert.css">
+</head>
+
+
+<body>
+FORGOT
+  <div id="blockwarning" class="alertBoxContainer">
+    <div id="blockwarningborder" class="alertBorder">
+      <img id="kenobialert" src="images/kenobialert.jpeg" >
+      <button id="dismisswarning" >Acknowledge</button>
+    </div>
+  </div>
+
+  <div id="blockoptions" class="alertBoxContainer">
+    <div id="blockoptionsborder" class="alertBorder">
+      <span  id="closeWarning" class="closeicon">&#10006;</span>
+      <img id="kenobioptions" src="images/alertOption.jpeg" >
+      <button id="takeoverkenobi" >Take over <br> KenOBI</button>
+      <button id="bringkenobihome" >Bring  KenOBI<br> Home </button>
+      <button id="reversepartrolroute" >Reverse <br> Patrol Route</button>
+    </div>
+  </div>

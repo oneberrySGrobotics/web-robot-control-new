@@ -1,0 +1,191 @@
+@media only screen and (max-width:700px) {
+  /* For mobile phones: */
+  	.logoLeft{
+	    width: 50%;
+	}
+
+	.logoRight{
+	    width: 35%;
+	}
+	.inputContainer{
+		width:100%;
+	}
+	.memberContainer{
+		width:100%;
+	}
+	.membercover{
+	text-align: left;
+	    border-bottom: red solid 2px;
+	}
+
+}
+
+@media only screen and (min-width:700px) and (max-width:1250px)  {
+	.logoLeft{
+	    width: 45%;
+	}
+
+	.logoRight{
+	    width: 26%;
+	}
+	.inputContainer{
+		width:100%;
+	}
+	.memberContainer{
+		width:100%;
+	}
+
+
+}
+
+@media only screen and (min-width:1250px) {
+	.logoLeft{
+	    width: 25%;
+	}
+
+	.logoRight{
+	    width: 15%;
+	}
+	.inputContainer{
+		width:50%;
+	}
+	.memberContainer{
+		width:50%;
+	}
+
+}
+
+
+/*body{
+	overflow:hidden;
+}*/
+
+.backhome{
+
+    font-size: 30px;
+    border: none;
+    /* right: 0; */
+    /* top: 0; */
+    float: right;
+    margin-top:-20px;
+}
+.logoContainer{
+	width:100%;
+	float:left;
+	/*border:solid red 2px;*/
+}
+.pageContainer{
+	width:100%;
+	float:left;
+	/*border:solid red 2px;*/
+}
+
+
+.inputContainer{
+	float:left;
+	/*border:solid red 2px;*/
+}
+.memberContainer{
+	float:left;
+	margin-top: 20px;
+	/*border:solid red 2px;*/
+	position: relative;
+	border-bottom: red solid 7px;
+	padding-right: 20px;
+	overflow: auto;
+	height: 500px;
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+.logoLeft{
+	float:left;
+    overflow: hidden;
+}
+
+.logoRight{
+	float:right;
+    overflow: hidden;
+}
+
+.symbolname{
+	
+	color: #4f4f4f;
+    font-size: 28px;
+    position: relative; 
+    top: -2px;
+    display: inline-flex;
+    margin: 5px;
+    padding-right: 13px;
+}
+
+.symbolemail{
+	color: #4f4f4f;
+    font-size: 35px;
+    position: relative;
+    bottom: 2px;
+    display: inline-flex;
+    margin: 5px;
+    padding-right: 13px;
+}
+
+.symbolbin{
+    color: #4f4f4f;
+    font-size: 31px;
+    display: inline-flex;
+    /* margin: 5px; */
+    position: relative;
+    bottom: 2px;
+    padding-right: 13px;
+}
+
+.symbolarrow{
+    color: #4f4f4f;
+    font-size: 25px;
+    position: relative;
+    margin-right: -17px;
+    display: inline-block;
+    bottom: 2px;
+    left: -4px;
+}
+
+.labelname{
+    width: 150px;
+    display: inline-block;
+    position: relative;
+    bottom: -7px;
+    text-align: left;
+    overflow-y: auto;
+}
+
+.labelemail{
+    width: 250px;
+    display: inline-block;
+    position: relative;
+    bottom: -13px;
+    text-align: left;
+    overflow-y: auto;
+}
+.symbolbin:hover {
+	/*text-shadow: 2px 2px 5px red;*/
+	cursor: pointer;
+}
+
+.hoverx {
+	text-shadow: 2px 2px 5px red;
+}
+
+
+.nameContainer{
+	width: 200px;
+    display: inline-flex;
+}
+.emailContainer{
+	width: 300px;
+    display: inline-flex;
+}
+
+.membercover{
+    margin-bottom: 14px;
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/viewPanel.css">
+    <link rel="stylesheet" type="text/css" href="styles/alert.css">
+    <link rel="stylesheet" type="text/css" href="styles/register.css">
+</head>
+
+
+<%  if (locals.email) {%>
+<body onload="getmemberx('<%=email%>')">
+<% }else {%>
+<body onload="getmemberx('')">
+<% }%>
+    <div id="sessExpirDiv">
+    </div>
+    <div id="blockwarning" class="alertBoxContainer">
+        <div id="blockwarningborder" class="alertBorder">
+            <img id="kenobialert" src="images/kenobialert.jpeg">
+            <button id="dismisswarning">Acknowledge</button>
+        </div>
+    </div>
+    <div id="blockoptions" class="alertBoxContainer">
+        <div id="blockoptionsborder" class="alertBorder">
+            <span id="closeWarning" class="closeicon">&#10006;</span>
+            <img id="kenobioptions" src="images/alertOption.jpeg">
+            <button id="takeoverkenobi">Take over <br> KenOBI</button>
+            <button id="bringkenobihome">Bring KenOBI<br> Home </button>
+            <button id="reversepartrolroute">Reverse <br> Patrol Route</button>
+        </div>
+    </div>
+    <form action="/logout?_method=DELETE" method="POST" hidden>
+        <button class="button-base" id="logoutbutton" title="Log Out" type="submit">&#128682;</button>
+    </form>
+    <div class="logoContainer">
+        <div class="logoLeft">
+            <img src="images/logo_oneberry.png" style="width:100%">
+        </div>
+        <div class="logoRight">
+            <img src="images/roboguard_logo_small.png" style="width:100%">
+        </div>
+    </div>
+    <div class="pageContainer">
+        <div class="inputContainer">
+            <form action="/register" class="form-style-9 " id="registerForm" method="POST">
+                <div class="backhome">
+                    <a href="/" style="font-size: 30px;border:none;" title="Back">&#8629;</a>
+                </div>
+                <span class="formtitle">Add User</span>
+                <% if (locals.msx) {
+            if (msx=="success") {%>
+                <span id="resultmsg" style="color:green" class="resultmsg">
+                    <%=msx%></span>
+                <% }else {%>
+                <span id="resultmsg" style="color:red" class="resultmsg">
+                    <%=msx%></span>
+                <% }}%>
+                <ul>
+                    <li>
+                        <input type="text" id="namex" name="name" minlength="4" class="field-style field-full align-none pendingBox" placeholder="Name" /><br>
+                        <p id="namemsg" class="invalid" hidden>at least 4 chars, ONLY - , _ and alphanumeric</p>
+                    </li>
+                    <li>
+                        <input type="email" id="email" name="email" class="field-style field-full align-none pendingBox" placeholder="Email" /><br>
+                        <p id="emailmsg" class="invalid" hidden>Please kindly use a proper email address</p>
+                    </li>
+                    <li>
+                        <!--<select name="role" id="role" class="field-style field-full align-none validBox" placeholder="role">
+                            <option value="user" selected>Operator</option>
+                            <option value="admin">Admin</option>
+                        </select>-->
+                    </li>
+                    <li>
+                        <input type="password" id="password" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!-\/:-@[-`{-~]).{8,}$" autocomplete="off" name="password" class="field-style field-full align-none pendingBox" placeholder="Password" /><br>
+                        <p id="passwordmsg" class="invalid" hidden>Password does not fullfill the requirements</p>
+                    </li>
+                    <div id="passalert" hidden>
+                        <p id="letter" class="invalid">A <b>Lowercase</b> letter</p>
+                        <p id="capital" class="invalid">A <b>Uppercase</b> letter</p>
+                        <p id="number" class="invalid">A <b>number</b></p>
+                        <p id="specialx" class="invalid">A <b>Special characted</b></p>
+                        <p id="lengthx" class="invalid">Minimum <b>8 characters</b></p>
+                        <p> &nbsp</p>
+                    </div>
+                    <li>
+                        <input type="password" id="passwordm" pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!-\/:-@[-`{-~]).{8,}$" autocomplete="off" name="passwordm" class="field-style field-full align-none pendingBox" placeholder="Confirm Password" /><br>
+                        <p id="passwordMatchmsg" class="invalid" hidden>Password does not Match</p>
+                    </li>
+                    <li>
+                        <button type="submit" id="registerbtn" class='button1' style="margin-top: 25px" value="register">Register</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div style="float:left;width: 50%;">
+            <%  if (locals.deletex) {
+                if(deletex=="success")
+            {%>
+            <span id="resultmsgx" style="color:green" class="resultmsg">
+                <%=deletex%></span>
+            <% }else {%>
+            <span id="resultmsgx" style="color:red" class="resultmsg">
+                <%=deletex%></span>
+            <% }%>
+            <script type="text/javascript">
+            setTimeout(function() {
+                resultmsgx.style.display = "none";
+            }, 2500);
+            </script>
+            <%}%>
+        </div>
+        <div class="memberContainer">
+            <div id="memberList">
+            </div>
+        </div>
+    </div>
+    <div id="resetForm" hidden></div>
+    <div id="userManagement"></div>
+    <!-- 
+<a href="/register">Not a member Yet? Register</a> -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts/idle.js"></script>
+    <script src="/scripts/regValidation.js"></script>
+    <script src="/scripts/register.js"></script>
+</body>
+
+</html>

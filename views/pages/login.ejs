@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" type="text/css" href="styles/viewPanel.css">
+    <link rel="stylesheet" type="text/css" href="styles/alert.css">
+</head>
+
+<body>
+    <div id="blockwarning" class="alertBoxContainer">
+        <div id="blockwarningborder" class="alertBorder">
+            <img id="kenobialert" src="images/kenobialert.jpeg">
+            <button id="dismisswarning">Acknowledge</button>
+        </div>
+    </div>
+    <div id="blockoptions" class="alertBoxContainer">
+        <div id="blockoptionsborder" class="alertBorder">
+            <span id="closeWarning" class="closeicon">&#10006;</span>
+            <img id="kenobioptions" src="images/alertOption.jpeg">
+            <button id="takeoverkenobi">Take over <br> KenOBI</button>
+            <button id="bringkenobihome">Bring KenOBI<br> Home </button>
+            <button id="reversepartrolroute">Reverse <br> Patrol Route</button>
+        </div>
+    </div>
+    <audio id="blockedAudio" muted="muted" autoplay>
+        <source src="sound/kenobi_alert.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div class="robo-header">
+        <!-- <img id="video-element" src="https://i.ytimg.com/vi/kjRmgDJC3ZM/maxresdefault.jpg" style="width: 100%; height: 100%;"> -->
+        <div class="oneberry-logo">
+            <img src="images/logo_oneberry.png" style="width:100%">
+        </div>
+    </div>
+    <form action="/login" class="form-style-9 " method="POST">
+        <div>
+            <img src="images/roboguard_logo.png" style="width:100%">
+        </div>
+        <span class="formtitle">Login</span>
+        <% if (messages.error) {%>
+        <span id="resultmsg" style="color:red" class="resultmsg">
+            <%= messages.error %></span>
+        <% } %>
+        <ul>
+            <li>
+                <input type="email" id="email" name="email" class="field-style field-full align-none" placeholder="Email" />
+            </li>
+            <li>
+                <input type="password" id="password" name="password" autocomplete="off" class="field-style field-full align-none" placeholder="Password" />
+            </li>
+            <li>
+                <button type="submit" class='button1' value="Login">Login</button>
+            </li>
+        </ul>
+        <p>
+            <br>
+            <a href="/forgot">Forgot password?/Unblock</a>
+        </p>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts/autonomous_var.js"></script>
+    <script src="/scripts/alert.js"></script>
+</body>
+
+</html>
